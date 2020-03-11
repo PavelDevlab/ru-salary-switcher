@@ -19,7 +19,12 @@ const plugins = [
     { from: 'app/static/**', to: '.' },
   ]),
   new webpack.ProvidePlugin({
-    // make fetch available
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
+    Popper: ['popper.js', 'default'],
+    Popover: 'exports-loader?Popover!bootstrap/js/dist/popover',
+    Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
     fetch: 'exports-loader?self.fetch!whatwg-fetch',
   }),
   new webpack.DefinePlugin({

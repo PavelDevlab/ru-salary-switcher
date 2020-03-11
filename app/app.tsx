@@ -2,7 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import 'bootstrap/dist/js/bootstrap.bundle';
+import 'jquery';
+import 'popper.js';
+import 'bootstrap';
 
 import { Provider } from 'react-redux';
 import SalarySwitcher from './features/salary/SalarySwitcher';

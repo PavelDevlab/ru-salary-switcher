@@ -65,9 +65,9 @@ module.exports = options => ({
           {
             loader: 'css-loader?modules=false',
             options: {
-              importLoaders: 1,
-              modules: true,
-              localIdentName: process.env.NODE_ENV !== 'production' ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+              // importLoaders: 1,
+              // modules: true,
+              // localIdentName: process.env.NODE_ENV !== 'production' ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
             },
           },
           {

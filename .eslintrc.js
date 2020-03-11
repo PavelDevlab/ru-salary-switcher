@@ -3,12 +3,9 @@ module.exports = {
   extends: [
     "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
     "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
     "eslint:recommended",
     "plugin:jest/recommended",
     "jest-enzyme",
-    "prettier",
-    //"plugin:prettier/recommended", // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
   ],
   parserOptions: {
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
@@ -28,14 +25,7 @@ module.exports = {
     "react/jsx-uses-vars": "error",
 
     // "linebreak-style": "off", // Неправильно работает в Windows.
-
-    // "arrow-parens": "off", // Несовместимо с prettier`
-    // "object-curly-newline": "off", // Несовместимо с prettier
-    // "no-mixed-operators": "off", // Несовместимо с prettier
-    // "arrow-body-style": "off", // Это - не наш стиль?
-    // "function-paren-newline": "off", // Несовместимо с prettier
     "no-plusplus": "off",
-    // "space-before-function-paren": 0, // Несовместимо с prettier
 
     "max-len": ["error", 200, 2, { "ignoreUrls": true }], // airbnb позволяет некоторые пограничные случаи
     "no-console": "error", // airbnb использует предупреждение
@@ -49,7 +39,6 @@ module.exports = {
     "react/forbid-prop-types": "off", // airbnb использует уведомление об ошибке
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".jsx"] }], // airbnb использует .jsx
 
-    "prefer-destructuring": "off",
 
     "react/no-find-dom-node": "off", // Я этого не знаю
     "react/no-did-mount-set-state": "off",
@@ -63,7 +52,6 @@ module.exports = {
       }
     }]// , // для ошибки вложенных свойств htmlFor элементов label
     */
-    // "prettier/prettier": ["error"]
   },
   "settings": {
     "import/resolver": {
@@ -101,7 +89,6 @@ module.exports = {
   },
   "plugins": [
     "react",
-    // "prettier",
     "@typescript-eslint"
   ]
 };

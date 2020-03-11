@@ -1,14 +1,21 @@
 
 import React from 'react';
-import { hydrate } from 'react-dom';
+import ReactDOM from 'react-dom';
 
-import './main.scss';
+import 'bootstrap/dist/js/bootstrap.bundle';
 
+import { Provider } from 'react-redux';
+import SalarySwitcher from './features/salary/SalarySwitcher';
+import './assets/app.scss';
+
+import createAppStore from 'app/redux/index';
 
 export const browserRender = () => {
-
-    hydrate(
-        <div>Info</div>,
+    const store = createAppStore();
+    ReactDOM.render(
+        <Provider key="provider" store={store} >
+            <SalarySwitcher />
+        </Provider>,
         document.getElementById('app'),
     );
 };

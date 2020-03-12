@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
     Field,
     reduxForm,
@@ -10,6 +10,7 @@ import { compose } from 'app/services/utils';
 import $ from 'jquery';
 import {SalaryType, salaryTypes} from './definitions';
 import SalaryRelated from './SalaryRelated';
+import InfoButton from '../common/InfoButton';
 
 interface FormSalarySwitcherValues {
     salaryType: SalaryType;
@@ -33,40 +34,32 @@ type SalarySwitcherProps = InjectedFormProps<{initialValues: FormSalarySwitcherV
 
 const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => {
 
-    useEffect(() => {
-        const unsubscribe = ($('[data-toggle="tooltip"]') as any).tooltip();
-        return () => {
-            unsubscribe();
-        };
-    }, []);
+
 
     return (
-        <div className="p-5">
-            <label>Сумма</label>
-            <fieldset className="form-group">
+        <div className="form-group p-5">
+
+            <label className="form-control-label">Сумма</label>
+            <fieldset className="form-group ml-3">
                 {salaryTypes.map((item) => {
                     return (
                         <div key={item.id}
-                             className="form-check">
-                            <Field className="form-check-input"
+                             className="custom-control custom-radio">
+                            <Field className="custom-control-input"
                                    name="salaryType"
                                    component="input"
                                    type="radio"
                                    id={item.id}
                                    value={item.id}
                             />
-                            <label className="form-check-label" htmlFor={item.id}>
+                            <label className="custom-control-label" htmlFor={item.id}>
                                 {item.caption}
-                                {!!item.info &&
-                                    <button type="button"
-                                            className="btn btn-secondary"
-                                            data-toggle="tooltip"
-                                            data-placement="bottom"
-                                            title={item.info}>
-                                        I
-                                    </button>
-                                }
                             </label>
+                            {!!item.info &&
+                                <InfoButton
+                                    info={item.info}
+                                />
+                            }
                         </div>
                     );
                 })}

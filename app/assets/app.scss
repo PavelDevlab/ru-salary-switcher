@@ -1,3 +1,32 @@
 
+html {
+  font-size: 14px;
+}
+
 @import "./bootstrap-vars";
 @import "~bootstrap/scss/bootstrap";
+@import "./bi-ico";
+
+label.form-control-label {
+  color: $gray-500;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.custom-control-label {
+  font-weight: bold;
+}
+
+.bs-tooltip-bottom {
+  .arrow {
+    &::before {
+      border-width: 0 $tooltip-arrow-width $tooltip-arrow-height 0;
+      border-left-color: $tooltip-arrow-color;
+    }
+  }
+}
+
+.tooltip-inner {
+  font-weight: 500;
+  line-height: 1.8;
+}

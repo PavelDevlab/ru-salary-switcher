@@ -15,7 +15,7 @@ const SalaryCalculationsComponent: React.FC<{usePersonalIncomeTax: boolean; amou
     };
 
     return (
-        <div>
+        <div className="alert alert-warning" role="alert">
             {calculations.handSalaryAmount} salary<br />
             {calculations.personalIncomeTax} personal income tax<br />
             {calculations.employeeFee} employee fee

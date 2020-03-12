@@ -1,0 +1,37 @@
+
+$black: #000000;
+$white: #FFFFFF;
+
+$purple: #5e6cab;
+$primary: $purple;
+
+$gray-500: #ababab !default;
+$tooltip-opacity: 1;
+
+$custom-control-indicator-checked-color:        $black !default;
+$custom-control-indicator-checked-bg:           $white !default;
+$custom-control-indicator-checked-disabled-bg:  darken($white, 15%) !default;
+$custom-control-indicator-checked-box-shadow:   none !default;
+$custom-control-indicator-checked-border-color: $gray-500 !default;
+
+$custom-control-indicator-active-color:         $black !default;
+$custom-control-indicator-active-bg:            darken($white, 8%) !default;
+$custom-control-indicator-active-border-color:  $gray-500 !default;
+
+$input-btn-focus-width:       .075em !default;
+$input-btn-focus-color:       rgba($black, .25) !default;
+
+$line-height-base:            2 !default;
+$custom-control-indicator-size: 1rem;
+$custom-control-indicator-bg-size: 70% 70% !default;
+
+$label-margin-bottom: 0.7rem;
+
+$tooltip-bg: $primary;
+$tooltip-border-radius: 0;
+
+$tooltip-padding-x: 0.7rem;
+$tooltip-padding-y: 1rem;
+
+$tooltip-arrow-height: 0.9rem;
+$tooltip-arrow-width: 0.9rem;

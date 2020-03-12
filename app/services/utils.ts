@@ -1,4 +1,17 @@
 
+export const applyPrec = (value: number, prec=2) => {
+    return Math.floor(value * (10 ** prec)) / 10 ** prec;
+};
+
+export const formatCurrencyAmount = (value: number, digitGroupLength=3, prec=2) => {
+    const digitGroupReg = new RegExp("(?:\\d{" + digitGroupLength + "})", "g");
+    let intValue = String(Math.floor(value));
+    intValue = intValue.split("").reverse().join("");
+    intValue = intValue.replace(digitGroupReg, str => str + ' ');
+    intValue = intValue.split("").reverse().join("");
+    return intValue + (value%1 ? ',' + Math.floor(Math.abs(value%1) * (10 ** prec)) : '');
+};
+
 export function compose<T1, T2>(
     f: (x: T1) => T2
 ): (x: T1) => T2;

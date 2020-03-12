@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import {
-    formValues,
     Field,
     reduxForm,
     InjectedFormProps
@@ -9,16 +8,8 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'app/services/utils';
 import $ from 'jquery';
-import { formatCurrencyAmount } from 'app/services/utils';
-
-const PERSONAL_INCOME_TAX_RATE = 0.13;
-
-enum SalaryType {
-    salaryAMonth= "salaryAMonth",
-    minimumSalary= "minimumSalary",
-    salaryADay= "salaryADay",
-    salaryAHour= "salaryAHour",
-}
+import {SalaryType, salaryTypes} from './definitions';
+import SalaryRelated from './SalaryRelated';
 
 interface FormSalarySwitcherValues {
     salaryType: SalaryType;
@@ -38,133 +29,7 @@ const connector = connect(() => {
     };
 });
 
-// export type SalarySwitcherReduxProps = ConnectedProps<typeof connector>;
-
 type SalarySwitcherProps = InjectedFormProps<{initialValues: FormSalarySwitcherValues}>;
-
-interface SalaryState {
-    id: SalaryType;
-    caption: string;
-    info?: string;
-    related?: {
-        usePersonalIncomeTax?: boolean;
-        amount?: boolean;
-        calculations?: boolean;
-    };
-}
-
-const salaryTypesMap: Map<SalaryType, SalaryState> = new Map([
-    [SalaryType.salaryAMonth, {
-        id: SalaryType.salaryAMonth,
-        caption: "Оклад за месяц",
-        related: {
-            usePersonalIncomeTax: true,
-            amount: true,
-            calculations: true
-        }
-    }],
-    [SalaryType.minimumSalary, {
-        id: SalaryType.minimumSalary,
-        caption: "МРОТ",
-        info: "МРОТ — минимальный размер оплаты труда. Разный для разных регионов.",
-    }],
-    [SalaryType.salaryADay, {
-        id: SalaryType.salaryADay,
-        caption: "Оклад за день",
-        related: {
-            usePersonalIncomeTax: true,
-            amount: true
-        }
-    }],
-    [SalaryType.salaryAHour, {
-        id: SalaryType.salaryAHour,
-        caption: "Оклад за час",
-        related: {
-            usePersonalIncomeTax: true,
-            amount: true
-        }
-    }]
-]);
-
-const salaryTypes: SalaryState[] = Array.from(salaryTypesMap).map(([, item]) => item);
-
-
-const SalaryCalculationsComponent: React.FC<{usePersonalIncomeTax: boolean; amount: string}> = (props) => {
-    const amount = parseFloat(props.amount || '0');
-    const handSalaryAmount = props.usePersonalIncomeTax ? (amount * (1/(1+PERSONAL_INCOME_TAX_RATE))) : amount;
-    const personalIncomeTax = props.usePersonalIncomeTax ? amount - handSalaryAmount : amount * PERSONAL_INCOME_TAX_RATE;
-    const calculations = {
-        handSalaryAmount: formatCurrencyAmount(handSalaryAmount),
-        personalIncomeTax: formatCurrencyAmount(personalIncomeTax),
-        employeeFee: formatCurrencyAmount(handSalaryAmount + personalIncomeTax),
-    };
-
-    return (
-        <div>
-            {calculations.handSalaryAmount} salary<br />
-            {calculations.personalIncomeTax} personal income tax<br />
-            {calculations.employeeFee} employee fee
-        </div>
-    );
-};
-
-const SalaryCalculations = formValues({
-    usePersonalIncomeTax: 'usePersonalIncomeTax',
-    amount: 'amount'
-})(SalaryCalculationsComponent as any) as any as React.FC<{}>;
-
-interface SalaryRelatedProps {
-    salaryType: SalaryType;
-}
-const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.ReactElement => {
-
-    const selectedSalaryType = salaryTypesMap.get(props.salaryType);
-
-    return (
-        <>
-            {!!selectedSalaryType?.related &&
-                <>
-                    {!!selectedSalaryType.related.usePersonalIncomeTax &&
-                        <fieldset className="form-group">
-                            <label>
-                                Personal income tax:
-                            </label>
-                            <Field className="form-check-input"
-                                   name="usePersonalIncomeTax"
-                                   component="input"
-                                   type="checkbox"
-                                   value="usePersonalIncomeTax"
-                            />
-                        </fieldset>
-                    }
-                    <br /><br />
-                    {!!selectedSalaryType.related.amount &&
-                        <fieldset>
-                            <label>
-                                Amount:
-                            </label>
-                            <Field className="form-check-input"
-                                   name="amount"
-                                   component="input"
-                                   type="number"
-                                   id="name"
-                                   value="amount"
-                            />
-                        </fieldset>
-                    }
-                    {!!selectedSalaryType.related.amount &&
-                        <SalaryCalculations />
-                    }
-                </>
-            }
-        </>
-    );
-};
-
-// todo: apply types here
-const SalaryRelated = formValues({
-    salaryType: 'salaryType'
-})(SalaryRelatedComponent) as any as React.FC<{}>;
 
 const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => {
 
@@ -210,7 +75,6 @@ const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => 
         </div>
     );
 };
-
 
 export default compose(
     connector as (arg0: any) => any,

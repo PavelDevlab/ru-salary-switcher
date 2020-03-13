@@ -1,25 +1,41 @@
 
-import React from "react";
-import {Field, formValues} from "redux-form";
-import {SalaryType, salaryTypesMap} from './definitions';
+import React, {useCallback, useState, useEffect} from "react";
+import {Field, formValues, change} from "redux-form";
+import {SalaryType, salaryMap} from './definitions';
 import SalaryCalculations from './SalaryCalculations';
 import classNames from 'classnames';
+import { compose } from 'app/services/utils';
+import { connect } from 'react-redux';
+import { StoreState } from 'app/redux/reducer';
 
 interface SalaryRelatedProps {
+    // _reduxForm: any;
     salaryType: SalaryType;
     usePersonalIncomeTax: boolean;
+    onChange?: (arg0: string, arg1: string, arg2: string) => void;
 }
 
-
 const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.ReactElement => {
+    const selectedSalary = salaryMap.get(props.salaryType);
+    const [isAmountChanged, setIsAmountChanged] = useState(false);
 
-    const selectedSalaryType = salaryTypesMap.get(props.salaryType);
+    const handleAmountChange = useCallback(() => {
+        setIsAmountChanged(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isAmountChanged &&
+                selectedSalary?.related?.amount &&
+                typeof selectedSalary?.related?.amount !== 'boolean') {
+            props.onChange && props.onChange('contact','amount', String(selectedSalary.related.amount.default));
+        }
+    }, [props.salaryType]);
 
     return (
         <>
-            {!!selectedSalaryType?.related &&
+            {!!selectedSalary?.related &&
                 <>
-                    {!!selectedSalaryType.related.usePersonalIncomeTax &&
+                    {!!selectedSalary.related.usePersonalIncomeTax &&
                         <div className="form-group _p-2 mb-2">
                             <div className="input-group">
                                 <div className="input-group-prepend">
@@ -54,10 +70,11 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
                             </div>
                         </div>
                     }
-                    {!!selectedSalaryType.related.amount &&
+                    {!!selectedSalary.related.amount &&
                         <div className="form-group _p-2 mb-4">
                             <div className="input-group _compact">
                                 <Field className="form-control"
+                                       onChange={handleAmountChange}
                                        name="amount"
                                        component="input"
                                        type="number"
@@ -67,15 +84,15 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
                                 <div className="input-group-append">
                                     <div className="input-group-text _label">
                                         ₽{' '}
-                                        {!!selectedSalaryType.currencyPostfix &&
-                                            selectedSalaryType.currencyPostfix
+                                        {!!selectedSalary.currencyPostfix &&
+                                            selectedSalary.currencyPostfix
                                         }
                                     </div>
                                 </div>
                             </div>
                         </div>
                     }
-                    {!!selectedSalaryType.related.calculations &&
+                    {!!selectedSalary.related.calculations &&
                         <SalaryCalculations />
                     }
                 </>
@@ -85,9 +102,22 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
 };
 
 // todo: apply types here
-const SalaryRelated = formValues({
-    salaryType: 'salaryType',
-    usePersonalIncomeTax: 'usePersonalIncomeTax'
-})(SalaryRelatedComponent) as any as React.FC<{}>;
+// const SalaryRelated = () as any as React.FC<{}>;
 
-export default SalaryRelated;
+export default compose(
+    connect((state: StoreState) => {
+        return {
+            contactForm: state.form.contact
+        };
+    }, (dispatch) => {
+        return {
+            onChange: (form: string, field: string, value: string) => {
+                dispatch(change(form, field, value));
+            }
+        };
+    }) as (a1: any) => any,
+    formValues({
+        salaryType: 'salaryType',
+        usePersonalIncomeTax: 'usePersonalIncomeTax'
+    }),
+)(SalaryRelatedComponent);

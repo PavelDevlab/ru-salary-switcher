@@ -14,18 +14,22 @@ interface SalaryState {
     currencyPostfix?: string;
     related?: {
         usePersonalIncomeTax?: boolean;
-        amount?: boolean;
+        amount?: boolean | {
+            default: number;
+        };
         calculations?: boolean;
     };
 }
 
-export const salaryTypesMap: Map<SalaryType, SalaryState> = new Map([
+export const salaryMap: Map<SalaryType, SalaryState> = new Map([
     [SalaryType.salaryAMonth, {
         id: SalaryType.salaryAMonth,
         caption: "Оклад за месяц",
         related: {
             usePersonalIncomeTax: true,
-            amount: true,
+            amount: {
+                default: 40000
+            },
             calculations: true
         }
     }],
@@ -40,7 +44,9 @@ export const salaryTypesMap: Map<SalaryType, SalaryState> = new Map([
         currencyPostfix: 'в день',
         related: {
             usePersonalIncomeTax: true,
-            amount: true
+            amount: {
+                default: 1500
+            }
         }
     }],
     [SalaryType.salaryAHour, {
@@ -49,9 +55,11 @@ export const salaryTypesMap: Map<SalaryType, SalaryState> = new Map([
         currencyPostfix: 'в час',
         related: {
             usePersonalIncomeTax: true,
-            amount: true
+            amount: {
+                default: 400
+            }
         }
     }]
 ]);
 
-export const salaryTypes: SalaryState[] = Array.from(salaryTypesMap).map(([, item]) => item);
+export const salaries: SalaryState[] = Array.from(salaryMap).map(([, item]) => item);

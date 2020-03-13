@@ -7,8 +7,7 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'app/services/utils';
-import $ from 'jquery';
-import {SalaryType, salaryTypes} from './definitions';
+import {SalaryType, salaries} from './definitions';
 import SalaryRelated from './SalaryRelated';
 import InfoButton from '../common/InfoButton';
 
@@ -34,14 +33,12 @@ type SalarySwitcherProps = InjectedFormProps<{initialValues: FormSalarySwitcherV
 
 const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => {
 
-
-
     return (
         <div className="form-group p-5">
 
             <label className="form-control-label">Сумма</label>
             <div className="form-group _p-1 mb-1">
-                {salaryTypes.map((item) => {
+                {salaries.map((item) => {
                     return (
                         <div key={item.id}
                              className="custom-control custom-radio">

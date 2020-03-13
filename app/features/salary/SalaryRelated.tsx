@@ -101,9 +101,6 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
     );
 };
 
-// todo: apply types here
-// const SalaryRelated = () as any as React.FC<{}>;
-
 export default compose(
     connect((state: StoreState) => {
         return {

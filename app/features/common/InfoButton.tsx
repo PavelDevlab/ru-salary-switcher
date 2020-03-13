@@ -39,7 +39,7 @@ const infoButtonReducer = (state: typeof initState, action: {type: InfoButtonAct
 const InfoButton: React.FC<{info: string}> = ({info}) => {
     const btt = useRef<HTMLButtonElement|null>(null);
     const [state, dispatch] = useReducer(infoButtonReducer, initState);
-    // todo: Custom this tooltip.
+
     useEffect(() => {
          ($(btt.current as any) as any).tooltip({
             offset: "50%p, 3px",

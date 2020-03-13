@@ -40,7 +40,7 @@ const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => 
         <div className="form-group p-5">
 
             <label className="form-control-label">Сумма</label>
-            <fieldset className="form-group ml-3">
+            <div className="form-group _p-1 mb-1">
                 {salaryTypes.map((item) => {
                     return (
                         <div key={item.id}
@@ -63,7 +63,7 @@ const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => 
                         </div>
                     );
                 })}
-            </fieldset>
+            </div>
             <SalaryRelated />
         </div>
     );

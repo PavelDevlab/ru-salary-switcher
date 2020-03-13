@@ -3,10 +3,14 @@ import React from "react";
 import {Field, formValues} from "redux-form";
 import {SalaryType, salaryTypesMap} from './definitions';
 import SalaryCalculations from './SalaryCalculations';
+import classNames from 'classnames';
 
 interface SalaryRelatedProps {
     salaryType: SalaryType;
+    usePersonalIncomeTax: boolean;
 }
+
+
 const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.ReactElement => {
 
     const selectedSalaryType = salaryTypesMap.get(props.salaryType);
@@ -14,43 +18,62 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
     return (
         <>
             {!!selectedSalaryType?.related &&
-            <>
-                {!!selectedSalaryType.related.usePersonalIncomeTax &&
-                    <fieldset className="custom-control custom-switch">
-                        <Field className="custom-control-input"
-                               id="usePersonalIncomeTaxId"
-                               name="usePersonalIncomeTax"
-                               component="input"
-                               type="checkbox"
-                               value="usePersonalIncomeTax"
-                        />
-                        <input type="checkbox" className="custom-control-input" id="customSwitch1" />
-                            <label className="custom-control-label"
-                                   htmlFor="usePersonalIncomeTaxId">
-                                Personal income tax:</label>
-                    </fieldset>
-                }
-                <br /><br />
-                {!!selectedSalaryType.related.amount &&
-                    <fieldset>
-                        <div className="input-group mb-2">
-                            <Field className="form-control"
-                                   name="amount"
-                                   component="input"
-                                   type="number"
-                                   id="name"
-                                   value="amount"
-                            />
-                            <div className="input-group-append">
-                                <div className="input-group-text">Р</div>{/* todo: Import ruble symbol here */}
+                <>
+                    {!!selectedSalaryType.related.usePersonalIncomeTax &&
+                        <div className="form-group _p-2">
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <label htmlFor={props.usePersonalIncomeTax ? "" : "usePersonalIncomeTaxId"}
+                                           className={classNames({
+                                               "input-group-text switcher-label": true,
+                                               "_active": props.usePersonalIncomeTax
+                                           })}>
+                                        Указать с НДФЛ
+                                    </label>
+                                </div>
+                                <div className="custom-control custom-switch switcher _reversed">
+                                    <Field className="custom-control-input"
+                                           id="usePersonalIncomeTaxId"
+                                           name="usePersonalIncomeTax"
+                                           component="input"
+                                           type="checkbox"
+                                           value="usePersonalIncomeTax"
+                                    />
+                                    <label className="custom-control-label"
+                                           htmlFor="usePersonalIncomeTaxId"></label>
+                                </div>
+                                <div className="input-group-append">
+                                    <label htmlFor={!props.usePersonalIncomeTax ? "" : "usePersonalIncomeTaxId"}
+                                           className={classNames({
+                                               "input-group-text switcher-label _right": true,
+                                               "_active": !props.usePersonalIncomeTax
+                                           })}>
+                                        Без НДФЛ
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </fieldset>
-                }
-                {!!selectedSalaryType.related.amount &&
-                    <SalaryCalculations />
-                }
-            </>
+                    }
+                    {!!selectedSalaryType.related.amount &&
+                        <div>
+                            <div className="input-group mb-2">
+                                <Field className="form-control"
+                                       name="amount"
+                                       component="input"
+                                       type="number"
+                                       id="name"
+                                       value="amount"
+                                />
+                                <div className="input-group-append">
+                                    <div className="input-group-text">Р</div>{/* todo: Import ruble symbol here */}
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    {!!selectedSalaryType.related.amount &&
+                        <SalaryCalculations />
+                    }
+                </>
             }
         </>
     );
@@ -58,7 +81,8 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
 
 // todo: apply types here
 const SalaryRelated = formValues({
-    salaryType: 'salaryType'
+    salaryType: 'salaryType',
+    usePersonalIncomeTax: 'usePersonalIncomeTax'
 })(SalaryRelatedComponent) as any as React.FC<{}>;
 
 export default SalaryRelated;

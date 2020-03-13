@@ -1,12 +1,20 @@
 
-$black: #000000;
-$white: #FFFFFF;
+$black: #000000 !default;
+$white: #FFFFFF !default;
 
-$purple: #5e6cab;
+$purple: #5e6cab !default;
+$green: #2ec350 !default;
+$orange: #f5a534 !default;
 $primary: $purple;
 
 $gray-500: #ababab !default;
+$gray-900: #2e2e2e !default;
 $tooltip-opacity: 1;
+
+$border-width:                1px !default;
+$input-btn-border-width:      $border-width !default;
+$input-border-width:                    $input-btn-border-width !default;
+$custom-control-indicator-border-width: $input-border-width !default;
 
 $custom-control-indicator-checked-color:        $black !default;
 $custom-control-indicator-checked-bg:           $white !default;
@@ -35,3 +43,8 @@ $tooltip-padding-y: 1rem;
 
 $tooltip-arrow-height: 0.9rem;
 $tooltip-arrow-width: 0.9rem;
+
+$custom-switch-width:                           $custom-control-indicator-size * 2.4 !default;
+$custom-switch-indicator-border-radius:         $custom-control-indicator-size !default;
+$custom-switch-indicator-size: add($custom-control-indicator-size, $custom-control-indicator-border-width * 2) !default;
+

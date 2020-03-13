@@ -3,9 +3,17 @@ html {
   font-size: 14px;
 }
 
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/vendor/rfs";
+@import "~bootstrap/scss/functions";
+
 @import "./bootstrap-vars";
 @import "~bootstrap/scss/bootstrap";
 @import "./bi-ico";
+
+body {
+  color: $gray-900;
+}
 
 label.form-control-label {
   color: $gray-500;
@@ -30,3 +38,77 @@ label.form-control-label {
   font-weight: 500;
   line-height: 1.8;
 }
+
+.custom-switch {
+  .custom-control-label {
+    &::after {
+      background-color: $white;
+    }
+    &::before {
+      border: none;
+      height: $custom-control-indicator-size * 1.43;
+      background-color: $orange;
+    }
+  }
+  .custom-control-input:checked ~ .custom-control-label {
+    &::before {
+      background-color: $success;
+    }
+    &::after {
+      transform: translateX($custom-switch-width - $custom-control-indicator-size * 1.43);
+    }
+  }
+  &._reversed {
+    .custom-control-label {
+      &::before {
+        background-color: $orange;
+      }
+      &::after {
+        transform: translateX($custom-switch-width - $custom-control-indicator-size * 1.43);
+      }
+    }
+    .custom-control-input:checked ~ .custom-control-label {
+      &::after {
+        background-color: $white;
+        transform: translateX(0);
+      }
+      &::before {
+        background-color: $success;
+      }
+    }
+  }
+  @include font-size(85%);
+}
+
+.d-inline-switcher {
+  display: inline-block;
+}
+
+.switcher-label {
+  @include font-size(75%);
+  cursor: pointer;
+  border: 0;
+  background: none;
+  line-height: 2.5;
+  margin-bottom: 0;
+  color: $gray-500;
+  font-weight: bold;
+  &._right {
+    padding-left: 0.3rem;
+  }
+  &._active {
+    cursor: default;
+    color: $gray-900;
+  }
+}
+
+.form-group {
+  &._p-1 {
+    padding-left: 1rem;
+  }
+  &._p-2 {
+    padding-left: 2rem;
+  }
+}
+
+

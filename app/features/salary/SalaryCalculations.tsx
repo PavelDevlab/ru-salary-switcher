@@ -1,6 +1,6 @@
 
 import React from "react";
-import {formatCurrencyAmount} from "app/services/utils";
+import {formatCurrencyAmount, applyPrec} from "app/services/utils";
 import {formValues} from "redux-form";
 import { PERSONAL_INCOME_TAX_RATE } from './definitions';
 
@@ -15,10 +15,13 @@ const SalaryCalculationsComponent: React.FC<{usePersonalIncomeTax: boolean; amou
     };
 
     return (
-        <div className="alert alert-warning" role="alert">
-            {calculations.handSalaryAmount} salary<br />
-            {calculations.personalIncomeTax} personal income tax<br />
-            {calculations.employeeFee} employee fee
+        <div>
+            <div className="alert alert-warning d-inline-block text-dark"
+                 role="alert">
+                <b>{calculations.handSalaryAmount} ₽</b> сотрудник будет получать на руки<br />
+                <b>{calculations.personalIncomeTax} ₽</b> НДФЛ, {applyPrec(PERSONAL_INCOME_TAX_RATE * 100, 0)}% от оклада<br />
+                <b>{calculations.employeeFee} ₽</b> за сотрудника в месяц
+            </div>
         </div>
     );
 };

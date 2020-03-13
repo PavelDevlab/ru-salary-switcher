@@ -1,0 +1,66 @@
+
+
+body {
+  color: $gray-900;
+}
+
+label.form-control-label {
+  color: $gray-500;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.custom-control-label {
+  font-weight: bold;
+}
+
+.bs-tooltip-bottom {
+  .arrow {
+    &::before {
+      border-width: 0 $tooltip-arrow-width $tooltip-arrow-height 0;
+      border-left-color: $tooltip-arrow-color;
+    }
+  }
+}
+
+.tooltip-inner {
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+
+.form-group {
+  &._p-1 {
+    padding-left: 1rem;
+  }
+  &._p-2 {
+    padding-left: 2.45rem;
+  }
+}
+
+.alert {
+  @include font-size(110%);
+}
+
+.input-group-text {
+  &._label {
+    background: none;
+    border: none;
+    font-weight: bold;
+    line-height: 1;
+    @include font-size(105%);
+  }
+}
+
+.input-group {
+  &._compact {
+    .form-control {
+      max-width: 10rem;
+    }
+
+    & > .form-control:not(:last-child), .input-group > .custom-select:not(:last-child) {
+      border-top-right-radius: $input-border-radius;
+      border-bottom-right-radius: $input-border-radius;
+    }
+  }
+}

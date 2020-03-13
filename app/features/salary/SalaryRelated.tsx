@@ -20,12 +20,12 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
             {!!selectedSalaryType?.related &&
                 <>
                     {!!selectedSalaryType.related.usePersonalIncomeTax &&
-                        <div className="form-group _p-2">
-                            <div className="input-group mb-3">
+                        <div className="form-group _p-2 mb-2">
+                            <div className="input-group">
                                 <div className="input-group-prepend">
                                     <label htmlFor={props.usePersonalIncomeTax ? "" : "usePersonalIncomeTaxId"}
                                            className={classNames({
-                                               "input-group-text switcher-label": true,
+                                               "input-group-text switcher-label _left": true,
                                                "_active": props.usePersonalIncomeTax
                                            })}>
                                         Указать с НДФЛ
@@ -55,8 +55,8 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
                         </div>
                     }
                     {!!selectedSalaryType.related.amount &&
-                        <div>
-                            <div className="input-group mb-2">
+                        <div className="form-group _p-2 mb-4">
+                            <div className="input-group _compact">
                                 <Field className="form-control"
                                        name="amount"
                                        component="input"
@@ -65,12 +65,17 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
                                        value="amount"
                                 />
                                 <div className="input-group-append">
-                                    <div className="input-group-text">Р</div>{/* todo: Import ruble symbol here */}
+                                    <div className="input-group-text _label">
+                                        ₽{' '}
+                                        {!!selectedSalaryType.currencyPostfix &&
+                                            selectedSalaryType.currencyPostfix
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     }
-                    {!!selectedSalaryType.related.amount &&
+                    {!!selectedSalaryType.related.calculations &&
                         <SalaryCalculations />
                     }
                 </>

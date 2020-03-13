@@ -1,0 +1,67 @@
+
+
+.custom-switch {
+  .custom-control-label {
+    &::after {
+      background-color: $white;
+    }
+    &::before {
+      border: none;
+      height: $custom-control-indicator-size * 1.43;
+      background-color: $orange;
+    }
+  }
+  .custom-control-input:checked ~ .custom-control-label {
+    &::before {
+      background-color: $gray-300;
+    }
+    &::after {
+      transform: translateX($custom-switch-width - $custom-control-indicator-size * 1.43);
+    }
+  }
+  &._reversed {
+    .custom-control-label {
+      &::before {
+        background-color: $orange;
+      }
+      &::after {
+        transform: translateX($custom-switch-width - $custom-control-indicator-size * 1.43);
+      }
+    }
+    .custom-control-input:checked ~ .custom-control-label {
+      &::after {
+        background-color: $white;
+        transform: translateX(0);
+      }
+      &::before {
+        background-color: $gray-200;
+      }
+    }
+  }
+  @include font-size(85%);
+}
+
+.d-inline-switcher {
+  display: inline-block;
+}
+
+.switcher-label {
+  @include font-size(75%);
+  cursor: pointer;
+  border: 0;
+  background: none;
+  line-height: 2.5;
+  margin-bottom: 0;
+  color: $gray-500;
+  font-weight: bold;
+  &._right {
+    padding-left: 0.3rem;
+  }
+  &._left {
+    padding-left: 0rem;
+  }
+  &._active {
+    cursor: default;
+    color: $gray-900;
+  }
+}

@@ -9,7 +9,7 @@ export const formatCurrencyAmount = (value: number, digitGroupLength=3, prec=2) 
     intValue = intValue.split("").reverse().join("");
     intValue = intValue.replace(digitGroupReg, str => str + ' ');
     intValue = intValue.split("").reverse().join("");
-    return intValue + (value%1 ? ',' + Math.floor(Math.abs(value%1) * (10 ** prec)) : '');
+    return intValue + (value%1 ? ',' + Math.round(Math.abs(value%1) * (10 ** prec)) : '');
 };
 
 export function compose<T1, T2>(

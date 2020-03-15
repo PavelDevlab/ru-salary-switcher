@@ -29,6 +29,6 @@ const SalaryCalculationsComponent: React.FC<{usePersonalIncomeTax: boolean; amou
 const SalaryCalculations = formValues({
     usePersonalIncomeTax: 'usePersonalIncomeTax',
     amount: 'amount'
-})(SalaryCalculationsComponent as any) as any as React.FC<{}>;
+})(SalaryCalculationsComponent) as any as React.FC<{}>;
 
 export default SalaryCalculations;

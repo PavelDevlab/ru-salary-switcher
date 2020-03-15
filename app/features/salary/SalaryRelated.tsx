@@ -8,13 +8,16 @@ import { compose } from 'app/services/utils';
 import { connect } from 'react-redux';
 import { StoreState } from 'app/redux/reducer';
 
-interface SalaryRelatedProps {
+interface SalaryRelatedReduxFormProps {
     salaryType: SalaryType;
     usePersonalIncomeTax: boolean;
+}
+
+interface SalaryRelatedProps {
     onChange?: (arg0: string, arg1: string, arg2: string) => void;
 }
 
-const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.ReactElement => {
+const SalaryRelatedComponent: React.FC<SalaryRelatedReduxFormProps & SalaryRelatedProps> = (props): React.ReactElement => {
     const selectedSalary = salaryMap.get(props.salaryType);
     const [isAmountChanged, setIsAmountChanged] = useState(false);
 
@@ -101,17 +104,13 @@ const SalaryRelatedComponent: React.FC<SalaryRelatedProps> = (props): React.Reac
 };
 
 export default compose(
-    connect((state: StoreState) => {
-        return {
-            contactForm: state.form.contact
-        };
-    }, (dispatch) => {
+    connect(null, (dispatch) => {
         return {
             onChange: (form: string, field: string, value: string) => {
                 dispatch(change(form, field, value));
             }
         };
-    }) as (a1: any) => any,
+    }) as (a1: React.ComponentType<SalaryRelatedProps & SalaryRelatedReduxFormProps>) => React.ComponentType<{}>,
     formValues({
         salaryType: 'salaryType',
         usePersonalIncomeTax: 'usePersonalIncomeTax'

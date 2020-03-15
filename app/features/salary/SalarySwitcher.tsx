@@ -5,7 +5,7 @@ import {
     reduxForm,
     InjectedFormProps
 } from 'redux-form';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'app/services/utils';
 import {SalaryType, salaries} from './definitions';
 import SalaryRelated from './SalaryRelated';
@@ -29,9 +29,11 @@ const connector = connect(() => {
     };
 });
 
-type SalarySwitcherProps = InjectedFormProps<{initialValues: FormSalarySwitcherValues}>;
+type PropsFromRedux = ConnectedProps<typeof connector>
 
-const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => {
+// type SalarySwitcherProps = InjectedFormProps<{initialValues: FormSalarySwitcherValues}>;
+
+const SalarySwitcher: React.FC<PropsFromRedux> = (): React.ReactElement => {
 
     return (
         <div className="form-group p-5">
@@ -67,7 +69,7 @@ const SalarySwitcher: React.FC<SalarySwitcherProps> = (): React.ReactElement => 
 };
 
 export default compose(
-    connector as (arg0: any) => any,
+    connector as (arg0: React.ComponentType<PropsFromRedux>) => React.ComponentType<{}>,
     reduxForm({
         // a unique name for the form
         form: 'contact',

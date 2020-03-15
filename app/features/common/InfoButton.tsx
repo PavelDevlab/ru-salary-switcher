@@ -41,10 +41,12 @@ const InfoButton: React.FC<{info: string}> = ({info}) => {
     const [state, dispatch] = useReducer(infoButtonReducer, initState);
 
     useEffect(() => {
-         ($(btt.current as any) as any).tooltip({
-            offset: "50%p, 3px",
-            trigger : 'manual'
-        });
+        if (btt.current !== null) {
+            $(btt.current).tooltip({
+                offset: "50%p, 3px",
+                trigger : 'manual'
+            });
+        }
     }, [btt.current]);
 
     useEffect(() => {

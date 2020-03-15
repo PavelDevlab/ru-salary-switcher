@@ -50,11 +50,11 @@ const InfoButton: React.FC<{info: string}> = ({info}) => {
     }, [btt.current]);
 
     useEffect(() => {
-        if (state.pinned || state.isMouseIn) {
-            ($(btt.current as any) as any).tooltip('show');
+        if (btt.current !== null && (state.pinned || state.isMouseIn)) {
+            $(btt.current).tooltip('show');
         }
-        if (!state.pinned && !state.isMouseIn) {
-            ($(btt.current as any) as any).tooltip('hide');
+        if (btt.current !== null &&(!state.pinned && !state.isMouseIn)) {
+            $(btt.current).tooltip('hide');
         }
     }, [state]);
 

@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { StoreState } from 'app/redux/reducer';
 
 interface SalaryRelatedProps {
-    // _reduxForm: any;
     salaryType: SalaryType;
     usePersonalIncomeTax: boolean;
     onChange?: (arg0: string, arg1: string, arg2: string) => void;
